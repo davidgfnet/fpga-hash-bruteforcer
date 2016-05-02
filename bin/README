@@ -19,4 +19,5 @@ ON and then put the controller in JTAG mode:
 
 Beware that the the manager doesn't support serial numbers right now.
 
+Find the controller bitstream at cm1_controller.bit :)
 
