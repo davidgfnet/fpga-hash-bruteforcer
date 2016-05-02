@@ -1,0 +1,22 @@
+
+Firmware shipped here has a max frequency of 150MHz aproximately.
+
+Flash:
+
+xc3sprog -c cm1 -p 0 -Ixc6lx150.bit cm1_toplevel.bit
+
+You have to also flash the other 3 FPGAs by using -p 1,
+-p 2 and -p 3. You may use -s if you have many CM1 boards
+attached (so you can specify which board to flash).
+
+You can also use Xilinx's software of course.
+
+If you are using the USB flashing method you should turn stuff
+ON and then put the controller in JTAG mode:
+
+./cm1_mgr 0 poweron
+./cm1_mgr 0 jtag enable
+
+Beware that the the manager doesn't support serial numbers right now.
+
+

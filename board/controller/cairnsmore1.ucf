@@ -1,0 +1,113 @@
+
+# UCF file for cairnsmore1 FPGA controller XS3
+#
+# Base clock (25Mhz)
+NET "clk" LOC = "P124";
+
+NET "clk25mhz" TNM_NET = "clk25mhz";
+TIMESPEC TS_clk25mhz = PERIOD "clk25mhz" 25 MHz HIGH 50 %;
+
+
+# USB inputs coming from FT4232H
+# The two first interfaces used for JTAG and SPI programming
+NET "USBC_0" LOC = "P28"; # TCK    
+NET "USBC_1" LOC = "P27"; # TDI
+NET "USBC_2" LOC = "P25"; # TDO
+NET "USBC_3" LOC = "P24"; # TMS
+NET "USBC_8" LOC = "P16" |SLEW = QUIETIO; # TXD
+NET "USBC_9" LOC = "P15" |SLEW = QUIETIO; # RXD
+# This two interfaces used as UART to run the actual workers
+NET "USBC_16" LOC = "P6"; # TXD
+NET "USBC_17" LOC = "P5"; # RXD
+NET "USBC_25" LOC = "P134"; # RXD
+NET "USBC_24" LOC = "P135"; # TXD   
+
+# Routing serial through the controller FPGA (cause I can :D)
+# TODO: Allow this to be programmable (some sort of connection matrix)
+# USB TO TOP LEFT LX150
+NET "USB1_5"  LOC = "P90";
+NET "USB1_6"  LOC = "P85";
+NET "USB1_7"  LOC = "P82";
+NET "USB1_8"  LOC = "P79";
+# USB TO TOP RIGHT LX150                 
+NET "USB2_5"  LOC = "P102";
+#NET "USB2_6"  LOC = "P98";
+NET "USB2_7"  LOC = "P96";
+#NET "USB2_8"  LOC = "P92";
+# USB TO LOWER LEFT LX150                 
+NET "USB3_5"  LOC = "P54";
+NET "USB3_6"  LOC = "P49";
+NET "USB3_7"  LOC = "P42";
+NET "USB3_8"  LOC = "P46";
+# USB TO LOWER RIGHT LX150                 
+NET "USB4_5"  LOC = "P70";
+#NET "USB4_6"  LOC = "P69";
+NET "USB4_7"  LOC = "P68";
+#NET "USB4_8"  LOC = "P60";
+
+
+################################
+# CLOCK SIGNALS TO LX150 DEVICES
+################################
+NET "CLOCKS1_1"  LOC = "P78" | SLEW = FAST; # BLVDS_25
+NET "CLOCKS1_2"  LOC = "P76" | SLEW = FAST;
+NET "CLOCKS2_1"  LOC = "P93" | SLEW = FAST;
+NET "CLOCKS2_2"  LOC = "P91" | SLEW = FAST;
+NET "CLOCKS3_1"  LOC = "P32" | SLEW = FAST;
+NET "CLOCKS3_2"  LOC = "P31" | SLEW = FAST;
+NET "CLOCKS4_1"  LOC = "P64" | SLEW = FAST;
+NET "CLOCKS4_2"  LOC = "P63" | SLEW = FAST;
+
+################################
+# POWER REGULATOR ENABLE SIGNALS
+################################
+NET "EN_1V2_1"       LOC = "P75"  | DRIVE = 12;
+NET "EN_1V2_2"       LOC = "P104" | DRIVE = 12; 
+NET "EN_1V2_3"       LOC = "P30"  | DRIVE = 12; 
+NET "EN_1V2_4"       LOC = "P77"  | DRIVE = 12; 
+NET "ARRAY_3V3_EN"   LOC = "P38"  | DRIVE = 12;
+
+# Unused pins for future reference
+
+#
+################################
+# FAN RPM SIGNALS
+################################
+NET "FAN_SENSE1"  LOC = "P142"  | PULLUP;
+NET "FAN_SENSE2"  LOC = "P139"  | PULLUP;
+NET "FAN_SENSE3"  LOC = "P138"  | PULLUP;
+NET "FAN_SENSE4"  LOC = "P141"  | PULLUP;
+
+NET "LED" LOC = "P29";
+
+# Come config bits
+#NET "UP1" 	LOC = "P72" |IOSTANDARD = "LVCMOS25" |PULLDOWN; # 
+#NET "UP2" 	LOC = "P71" |IOSTANDARD = "LVCMOS25" |PULLDOWN; # 
+#NET "UP3" 	LOC = "P62" |IOSTANDARD = "LVCMOS25" |PULLDOWN; # 
+#NET "UP4" 	LOC = "P41" |IOSTANDARD = "LVCMOS25" |PULLDOWN; # 
+#NET "DOWN1" LOC = "P37" |IOSTANDARD = "LVCMOS25"; # 
+#NET "DOWN2" LOC = "P43" |IOSTANDARD = "LVCMOS25"; # 
+#NET "DOWN3" LOC = "P44" |IOSTANDARD = "LVCMOS25"; # 
+#NET "DOWN4" LOC = "P45" |IOSTANDARD = "LVCMOS25"; # 
+
+
+# More USB inputs from FT4232H
+#NET "USBC_16" LOC = "P6" 	|IOSTANDARD = "LVCMOS25"; # TXD
+#NET "USBC_17" LOC = "P5" 	|IOSTANDARD = "LVCMOS25"; # RXD
+#NET "USBC_24" LOC = "P135"  |IOSTANDARD = "LVCMOS25"; # TXD
+#NET "USBC_25" LOC = "P134"  |IOSTANDARD = "LVCMOS25"; # RXD
+# JTAG override outputs (to program the XS6 FPGAs)
+NET "JTAG_TCK" LOC = "P127" |DRIVE = 12 |SLEW = QUIETIO; # DRIVE_TCK
+NET "JTAG_TDI" LOC = "P130" |DRIVE = 12 |SLEW = QUIETIO; # DRIVE_TDI
+NET "JTAG_TDO" LOC = "P129";                             # DRIVE_TDO
+NET "JTAG_TMS" LOC = "P126" |DRIVE = 12 |SLEW = QUIETIO; # DRIVE_TMS
+
+# Switches for config purposes
+#NET "SWITCH1"  LOC = "P33"   |IOSTANDARD = "LVCMOS25" |PULLUP;   
+#NET "SWITCH2"  LOC = "P35"   |IOSTANDARD = "LVCMOS25" |PULLUP;   
+#NET "SWITCH3"  LOC = "P140"  |IOSTANDARD = "LVCMOS25" |PULLUP;   
+#NET "SWITCH4"  LOC = "P53"   |IOSTANDARD = "LVCMOS25" |PULLUP;  
+#NET "SWITCH5"  LOC = "P80"   |IOSTANDARD = "LVCMOS25" |PULLUP;   
+#NET "SWITCH6"  LOC = "P97"   |IOSTANDARD = "LVCMOS25" |PULLUP;   
+#NET "SWITCH8"  LOC = "P123"  |IOSTANDARD = "LVCMOS25" |PULLUP;
+
